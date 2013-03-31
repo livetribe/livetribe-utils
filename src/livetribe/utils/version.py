@@ -125,7 +125,12 @@ class StandardVersion(Version):
         elif not self.qualifier and other.qualifier:
             return 1
         elif self.qualifier and other.qualifier:
-            return cmp(self.qualifier, other.qualifier)
+            if self.qualifier < other.qualifier:
+                return -1
+            elif self.qualifier > other.qualifier:
+                return 1
+            else:
+                return 0
 
     def __hash__(self):
         return hash(self.tuple)
