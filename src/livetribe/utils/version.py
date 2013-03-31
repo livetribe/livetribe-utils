@@ -1,20 +1,20 @@
-"""
- Copyright 2013 the original author or authors
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.
-
- Version handling classes & methods. """
+#
+# Copyright 2013 the original author or authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+""" Version handling classes & methods. """
 
 import re
 import pkg_resources
@@ -39,8 +39,8 @@ def ensure_version(given, expected):
     expected_version = StandardVersion.parse(expected)
 
     if given_version < expected_version:
-        return (False, str(expected_version))
-    return (True, str(expected_version))
+        return False, str(expected_version)
+    return True, str(expected_version)
 
 
 class Version(object):
@@ -86,7 +86,7 @@ class StandardVersion(Version):
 
     @property
     def tuple(self):
-        return (self.version[0], self.version[1], self.version[2], self.qualifier)
+        return self.version[0], self.version[1], self.version[2], self.qualifier
 
     def __str__(self):
         major, minor, micro = self.version
@@ -163,7 +163,7 @@ class VersionRange(object):
 
     @property
     def tuple(self):
-        return (self.start.tuple, self.start_include, self.end.tuple, self.end_include)
+        return self.start.tuple, self.start_include, self.end.tuple, self.end_include
 
     def __str__(self):
         string = '[' if self.start_include else '('
