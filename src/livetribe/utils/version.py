@@ -100,6 +100,9 @@ class StandardVersion(Version):
     def __repr__(self):
         return 'StandardVersion(%r, %r, %r, %r)' % self.tuple
 
+    def __lt__(self, other):
+        return self.__cmp__(other) < 0
+
     def __cmp__(self, other):
         if isinstance(other, str):
             other = StandardVersion.parse(other)
