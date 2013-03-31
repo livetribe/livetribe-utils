@@ -107,10 +107,11 @@ class StandardVersion(Version):
         if isinstance(other, str):
             other = StandardVersion.parse(other)
 
-        compare = cmp(self.version, other.version)
         # numeric versions don't match -- qualifier stuff doesn't matter
-        if compare != 0:
-            return compare
+        if self.version < other.version:
+            return -1
+        elif self.version > other.version:
+            return 1
 
         # case 1: neither has qualifier; they're equal
         # case 2: self has qualifier, other doesn't; other is greater
